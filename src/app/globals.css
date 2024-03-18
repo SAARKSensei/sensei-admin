@@ -23,7 +23,17 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
-
+@layer components {
+  .button--submit {
+    @apply w-[129px] rounded-lg bg-[#2C3D68] text-[#FF8B13] font-semibold text-lg px-6 py-3;
+  }
+  .button-action-fill {
+    @apply text-black font-medium shadow-xl active:bg-[#E07200] active:text-white px-6 py-3 bg-[#FF8B13] rounded-lg disabled:bg-[#F6F6F6] disabled:text-[#B3B3B3] disabled:shadow-none;
+  }
+  .button-action-outline {
+    @apply text-[#FF8B13] font-medium px-6 py-3 border-[#FF8B13] outline-[#E07200] outline-2 outline hover:outline-1 rounded-lg disabled:bg-[#F6F6F6] disabled:text-[#B3B3B3] disabled:outline-none;
+  }
+}
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,

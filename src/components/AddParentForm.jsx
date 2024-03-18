@@ -25,7 +25,7 @@ const AddParentForm = () => {
   return (
     <>
       <form
-        className="flex flex-wrap justify-evenly gap-5 w-full "
+        className="mt-8 flex flex-wrap justify-between gap-4 w-full "
         action={AddParent}
       >
         <div className="flex  flex-col">
@@ -64,7 +64,7 @@ const AddParentForm = () => {
             </option>
           </select>
         </div>
-        <div className="flex  flex-wrap md:flex-nowrap  justify-evenly md:w-full  lg:w-2/3">
+        <div className="flex  flex-wrap justify-between w-full gap-5  min-[1200px]:w-2/3">
           <div className="flex  flex-col ">
             <label className=" pb-[10px] pt-5 text-sm" htmlFor="motherName">
               Mother&apos;s Name
@@ -218,8 +218,8 @@ const AddParentForm = () => {
             />
           </div>
         </div>
+        <AddParentSubmitButton />
       </form>
-      <AddParentSubmitButton />
     </>
   );
 };
