@@ -25,7 +25,7 @@ body {
 }
 @layer components {
   .button--submit {
-    @apply w-[129px] rounded-lg bg-[#2C3D68] text-[#FF8B13] font-semibold text-lg px-6 py-3;
+    @apply w-[129px] rounded-lg bg-[#2C3D68] text-[#FF8B13] font-semibold text-lg px-6 py-3 disabled:bg-[#F6F6F6] disabled:text-[#B3B3B3] disabled:shadow-none;
   }
   .button-action-fill {
     @apply text-black font-medium shadow-xl active:bg-[#E07200] active:text-white px-6 py-3 bg-[#FF8B13] rounded-lg disabled:bg-[#F6F6F6] disabled:text-[#B3B3B3] disabled:shadow-none;
@@ -116,16 +116,6 @@ input {
   filter: none;
 }
 
-select {
-  /* -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: url("data:image/svg+xml;utf8,<svg fill='yellow' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>")
-    no-repeat;
-  background-position-x: 100%;
-  background-size: 1.5em; */
-  border-right: 20px solid white;
-}
 ::-webkit-calendar-picker-indicator {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff8b13' d='M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z'/%3E%3Cpath fill='%23ff8b13' d='M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2M19 8l.001 12H5V8z'/%3E%3C/svg%3E");
 }
@@ -136,4 +126,33 @@ input[type="date"]:invalid::-webkit-datetime-edit {
   .text-balance {
     text-wrap: balance;
   }
+}
+.selectAfter::after {
+  content: "";
+  background-image: url(/downArrow.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  height: 100%;
+  width: 14px;
+  right: 24px;
+  top: 20px;
+  transition: all 0.4s;
+}
+/* .selectAfter:hover::after {
+  transform: rotate(180deg);
+} */
+.activeArrow::after {
+  transform: rotateX(180deg);
+  top: -20px;
+}
+.edit-button::after {
+  content: "";
+  background-image: url(/ep_edit.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  height: 100%;
+  width: 24px;
+  right: 10px;
 }
