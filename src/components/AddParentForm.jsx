@@ -1,27 +1,61 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddParentSubmitButton from "./AddParentSubmitButton";
 import Select from "./Select";
 import { AddParent } from "../app/actions";
 import { useForm } from "react-hook-form";
-const AddParentForm = () => {
+const AddParentForm = ({ data }) => {
   const [maritalStatus, setMaritalStatus] = useState("Married");
   const {
     register,
     reset,
     handleSubmit,
+
     formState: { isSubmitSuccessful, errors, isSubmitting },
   } = useForm();
+  useEffect(() => {
+    if (!data) return;
+    const parentData = {
+      ParentId: data?.ParenId ?? "",
+      MaritalStatus: data?.MartialStatus ?? "",
+      FatherName: data?.ParentName ?? "",
+      FatherPhone: data?.PhoneNo ?? "",
+      FatherEmail: data?.EmailId ?? "",
+      FatherOccupation: data?.Occupation ?? "",
+      isFatherWorking: data?.Working ?? "",
+      FatherDob: data?.ParentDob ?? "",
+      MotherName: data?.ParentName ?? "",
+      MotherPhone: data?.PhoneNo ?? "",
+      MotherEmail: data?.EmailId ?? "",
+      MotherOccupation: data?.Occupation ?? "",
+      isMotherWorking: data?.Working ?? "",
+      MotherDob: data?.ParentDob ?? "",
+      ParentName: data?.ParentName ?? "",
+      ParentPhone: data?.PhoneNo ?? "",
+      ParentEmail: data?.EmailId ?? "",
+      ParentOccupation: data?.Occupation ?? "",
+      isParentWorking: data?.Working ?? "",
+      ParentDob: data?.FatherDob ?? "",
+    };
+    console.log(parentData);
+    reset(parentData);
+  }, [data, reset]);
   const maritalStatusChangeHandler = async (value) => {
     setMaritalStatus(value);
   };
   const submitHandler = async (formData) => {
-    //console.log(errors);
-    console.log(formData);
-    AddParent(formData);
+    const res = await AddParent(formData);
+    console.log(res);
+
     if (isSubmitSuccessful) reset();
   };
+  useEffect(() => {
+    console.log(isSubmitting);
 
+    if (isSubmitSuccessful) {
+      console.log("Parent Added Successfully");
+    }
+  }, [isSubmitting, isSubmitSuccessful]);
   return (
     <>
       <form
@@ -35,7 +69,7 @@ const AddParentForm = () => {
           </label>{" "}
           <input
             required
-            className=" shadow-sm px-6 py-3 rounded-xl outline-none"
+            className=" shadow px-6 py-3 rounded-xl outline-none"
             type="text"
             placeholder="Type here"
             {...register("ParentId")}
@@ -67,7 +101,7 @@ const AddParentForm = () => {
     </>
   );
 };
-const ParentForm = ({ parentName, register }) => {
+const ParentForm = ({ parentName, register, control }) => {
   return (
     <div className="flex  flex-col ">
       <label className=" pb-[10px] pt-5 text-sm" htmlFor={`${parentName}Name`}>
@@ -75,7 +109,7 @@ const ParentForm = ({ parentName, register }) => {
       </label>{" "}
       <input
         required
-        className=" shadow-sm px-6 py-3 rounded-xl outline-none"
+        className=" shadow px-6 py-3 rounded-xl outline-none"
         type="text"
         placeholder="Type here"
         {...register(`${parentName}Name`)}
@@ -86,7 +120,7 @@ const ParentForm = ({ parentName, register }) => {
       </label>{" "}
       <input
         required
-        className=" shadow-sm px-6 py-3 rounded-xl outline-none"
+        className=" shadow px-6 py-3 rounded-xl outline-none"
         type="text"
         placeholder="Type here"
         {...register(`${parentName}Phone`)}
@@ -97,7 +131,7 @@ const ParentForm = ({ parentName, register }) => {
       </label>{" "}
       <input
         required
-        className=" shadow-sm px-6 py-3 rounded-xl outline-none"
+        className=" shadow px-6 py-3 rounded-xl outline-none"
         type="email"
         placeholder="Type here"
         {...register(`${parentName}Email`)}
@@ -143,7 +177,7 @@ const ParentForm = ({ parentName, register }) => {
       </label>{" "}
       <input
         required
-        className=" shadow-sm max-w-fit  px-6 py-3 rounded-xl outline-none"
+        className=" shadow max-w-fit  px-6 py-3 rounded-xl outline-none"
         type="date"
         {...register(`${parentName}Dob`)}
         name={`${parentName}Dob`}

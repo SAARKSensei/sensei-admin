@@ -3,6 +3,8 @@ import "./globals.css";
 import SideMenu from "@/components/SideMenu";
 import Image from "next/image";
 import { FaUser } from "react-icons/fa";
+import StoreProvider from "@/lib/StoreProvider";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -12,25 +14,29 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <main className="flex max-h-screen min-h-screen overflow-hidden flex-col bg-white">
-          <div className=" shadow-2xl w-full flex justify-between px-[50px] py-3 bg-[#2C3D68]">
-            <Image
-              className="w-[107px] h-[41px]"
-              src={"/senseiLogo.png"}
-              alt="Sensei Logo"
-              width={500}
-              height={500}
-            />
-            <FaUser className="text-[#FF8B13] bg-white rounded-full w-11 h-11 pt-3" />
-          </div>
-          <div className="flex flex-grow overflow-auto">
-            <SideMenu />
-            <div className="w-full overflow-auto p-8 lg:px-20">{children}</div>
-          </div>
-        </main>
-      </body>
-    </html>
+    <StoreProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <main className="flex max-h-screen min-h-screen overflow-hidden flex-col bg-white">
+            <div className=" shadow-2xl w-full flex justify-between px-[50px] py-3 bg-[#2C3D68]">
+              <Image
+                className="w-[107px] h-[41px]"
+                src={"/senseiLogo.png"}
+                alt="Sensei Logo"
+                width={500}
+                height={500}
+              />
+              <FaUser className="text-[#FF8B13] bg-white rounded-full w-11 h-11 pt-3" />
+            </div>
+            <div className="flex flex-grow overflow-auto">
+              <SideMenu />
+              <div className="w-full overflow-auto p-8 lg:px-20">
+                {children}
+              </div>
+            </div>
+          </main>
+        </body>
+      </html>
+    </StoreProvider>
   );
 }
