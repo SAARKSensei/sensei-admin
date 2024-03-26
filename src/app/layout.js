@@ -28,11 +28,9 @@ export default function RootLayout({ children }) {
               />
               <FaUser className="text-[#FF8B13] bg-white rounded-full w-11 h-11 pt-3" />
             </div>
-            <div className="flex flex-grow overflow-auto">
+            <div className="flex flex-grow">
               <SideMenu />
-              <div className="w-full overflow-auto p-8 lg:px-20">
-                {children}
-              </div>
+              <div className="flex-grow my-3">{children}</div>
             </div>
           </main>
         </body>

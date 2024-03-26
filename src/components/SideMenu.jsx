@@ -10,7 +10,7 @@ const SideMenu = () => {
       <div className="group/dropdown">
         <Link
           className={`flex items-center justify-between  hover:bg-[#FF8B13] px-10 py-4 ${
-            path === "/dashboard" ? "bg-[#FF8B13]" : ""
+            path.startsWith("/dashboard") ? "bg-[#FF8B13]" : ""
           }`}
           href="/dashboard"
         >
@@ -33,7 +33,7 @@ const SideMenu = () => {
       </div>
       <Link
         className={`hover:bg-[#FF8B13] px-10 py-4 ${
-          path === "/curriculum" ? "bg-[#FF8B13]" : ""
+          path.startsWith("/curriculum") ? "bg-[#FF8B13]" : ""
         }`}
         href="/curriculum"
       >
@@ -41,7 +41,7 @@ const SideMenu = () => {
       </Link>
       <Link
         className={`hover:bg-[#FF8B13] px-10 py-4 ${
-          path === "/student" ? "bg-[#FF8B13]" : ""
+          path.startsWith("/student") ? "bg-[#FF8B13]" : ""
         }`}
         href="/student"
       >
@@ -49,7 +49,7 @@ const SideMenu = () => {
       </Link>
       <Link
         className={`hover:bg-[#FF8B13] px-10 py-4 ${
-          path === "/parent" ? "bg-[#FF8B13]" : ""
+          path.startsWith("/parent") ? "bg-[#FF8B13]" : ""
         }`}
         href="/parent"
       >
@@ -57,7 +57,7 @@ const SideMenu = () => {
       </Link>
       <Link
         className={`hover:bg-[#FF8B13] px-10 py-4 ${
-          path === "/counsellor" ? "bg-[#FF8B13]" : ""
+          path.startsWith("/counsellor") ? "bg-[#FF8B13]" : ""
         }`}
         href="/counsellor"
       >
@@ -65,15 +65,15 @@ const SideMenu = () => {
       </Link>
       <Link
         className={`hover:bg-[#FF8B13] px-10 py-4 ${
-          path === "/schools" ? "bg-[#FF8B13]" : ""
+          path.startsWith("/school") ? "bg-[#FF8B13]" : ""
         }`}
-        href="/schools"
+        href="/school"
       >
         Schools
       </Link>
       <Link
         className={`hover:bg-[#FF8B13] px-10 py-4 ${
-          path === "/announcements" ? "bg-[#FF8B13]" : ""
+          path.startsWith("/announcements") ? "bg-[#FF8B13]" : ""
         }`}
         href="/announcements"
       >

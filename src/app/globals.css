@@ -34,7 +34,7 @@ body {
     @apply text-black font-medium shadow-xl active:bg-[#E07200] active:text-white px-6 py-3 bg-[#FF8B13] rounded-lg disabled:disable;
   }
   .button-action-outline {
-    @apply text-[#FF8B13] font-medium px-6 py-3 border-[#FF8B13] outline-[#E07200] outline-2 outline hover:outline-1 rounded-lg disabled:disable;
+    @apply text-[#FF8B13] font-medium pl-3 py-2 md:px-6 md:py-3 border-[#FF8B13] outline-[#E07200] outline-2 outline hover:outline-1 rounded-lg disabled:disable;
   }
 }
 input:-webkit-autofill,
@@ -153,4 +153,9 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+.custome-box-shadow {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }

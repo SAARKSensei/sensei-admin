@@ -59,7 +59,7 @@ const AddParentForm = ({ data }) => {
   return (
     <>
       <form
-        className="mt-8 flex flex-wrap justify-between gap-4 w-full "
+        className="flex p-10 flex-wrap gap-8  max-h-[calc(100vh-130px)] overflow-auto w-full "
         onSubmit={handleSubmit(submitHandler)}
         //action={submitHandler}
       >

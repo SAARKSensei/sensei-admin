@@ -8,6 +8,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import React, { useState, useRef, useEffect } from "react";
+import { ImCheckmark } from "react-icons/im";
 
 export default function Table({
   rowSelection,
@@ -56,8 +57,8 @@ export default function Table({
     };
   }, []);
   return (
-    <div className="w-full min-w-96 mt-4">
-      <div className="flex items-center w-full">
+    <div className=" mt-4 ">
+      <div className="flex items-center mx-10 ">
         <input
           className=" my-4 mr-auto p-4 h-10 button-action-outline"
           placeholder="Search..."
@@ -69,7 +70,7 @@ export default function Table({
           <button
             id="dropdownCheckboxButton"
             data-dropdown-toggle="dropdownDefaultCheckbox"
-            class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center ddark:bg-blue-600 ddark:hover:bg-blue-700 ddark:focus:ring-gray-800"
+            class=" bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center ddark:bg-blue-600 ddark:hover:bg-blue-700 ddark:focus:ring-gray-800"
             type="button"
             onClick={() => setColumnSelectOpen((prev) => !prev)}
           >
@@ -82,7 +83,7 @@ export default function Table({
               viewBox="0 0 10 6"
             >
               <path
-                stroke="currentColor"
+                stroke="#FF8B13"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
@@ -95,7 +96,7 @@ export default function Table({
             id="dropdownDefaultCheckbox"
             class={`${
               columnSelectOpen ? "" : " hidden "
-            }  z-10 absolute w-fit bg-white divide-y divide-gray-100 rounded-lg shadow ddark:bg-gray-700 ddark:divide-gray-600`}
+            }  z-10 absolute w-fit -right-10 bg-white divide-y divide-gray-100 rounded-lg shadow ddark:bg-gray-700 ddark:divide-gray-600`}
           >
             <ul
               class="p-3 space-y-3 text-sm text-gray-700 ddark:text-gray-200"
@@ -113,14 +114,18 @@ export default function Table({
                         <input
                           checked={column.getIsVisible()}
                           onChange={column.getToggleVisibilityHandler()}
-                          id="checkbox-item-1"
+                          id={column.id}
                           type="checkbox"
-                          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-gray-500 ddark:focus:ring-gray-600 ddark:ring-offset-gray-700 ddark:focus:ring-offset-gray-700 focus:ring-2 ddark:bg-gray-600 ddark:border-gray-500"
+                          class=" appearance-none"
                         />
+
                         <label
-                          for="checkbox-item-1"
-                          class="ms-2 whitespace-nowrap text-sm font-medium text-gray-900 ddark:text-gray-300"
+                          for={column.id}
+                          class=" pl-5 relative  whitespace-nowrap text-sm font-medium text-gray-900 ddark:text-gray-300"
                         >
+                          {column.getIsVisible() && (
+                            <ImCheckmark className="absolute left-0 top-[2px] text-[#FF8B13]" />
+                          )}{" "}
                           {column.id === "select"
                             ? "Select"
                             : column.columnDef?.header}
@@ -133,9 +138,9 @@ export default function Table({
           </div>
         </div>
       </div>
-      <div className=" overflow-scroll scrollbar-hide">
-        <table className="border-collapse table-auto overflow-scroll w-fit text-sm">
-          <thead>
+      <div className=" w-[calc(100vw-203px)] overflow-auto h-[calc(100vh-250px)] ">
+        <table className="mx-auto w-max border-collapse table-auto  text-sm">
+          <thead className=" sticky top-0 bg-white">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -164,13 +169,12 @@ export default function Table({
               </tr>
             ))}
           </thead>
-
-          <tbody className="bg-white dddark:bg-slate-800">
+          <tbody className=" bg-white dddark:bg-slate-800 ">
             {table.getRowModel().rows.map((row) => (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell) => (
                   <td
-                    className="w-fit overflow-x-auto scrollbar-hide border-b border-slate-100 dddark:border-slate-700 p-4  text-slate-500 dddark:text-slate-400"
+                    className="w-fit border-b border-slate-100 dddark:border-slate-700 p-4  text-slate-500 dddark:text-slate-400"
                     key={cell.id}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -181,52 +185,56 @@ export default function Table({
           </tbody>
         </table>
       </div>
-      <div className="flex justify-between items-center gap-2">
-        {typeof rowSelection === Object && Object.keys(rowSelection).length ? (
+      <div className="flex justify-around items-center gap-2">
+        {Object.keys(rowSelection)?.length ? (
           <div>{Object.keys(rowSelection).length} Rows Selected</div>
-        ) : null}
+        ) : (
+          <div> </div>
+        )}
 
-        <label className="ml-auto " htmlFor="pageSie">
+        <label htmlFor="pageSie">
           Rows/Page
+          <input
+            type="number"
+            id="pageSize"
+            className="border rounded p-1 w-16"
+            value={table.getState().pagination.pageSize}
+            onChange={(e) => table.setPageSize(Number(e.target.value))}
+          />
         </label>
-        <input
-          type="number"
-          id="pageSize"
-          className="border rounded p-1 w-16"
-          value={table.getState().pagination.pageSize}
-          onChange={(e) => table.setPageSize(Number(e.target.value))}
-        />
-        <button
-          className=" border rounded p-1 "
-          onClick={() => table.setPageIndex(0)}
-          disabled={!table.getCanPreviousPage()}
-        >
-          {"<<"}
-        </button>
-        <button
-          className="border rounded p-1"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          {"<"}
-        </button>
-        <strong>
-          {table.getState().pagination.pageIndex + 1} /{table.getPageCount()}
-        </strong>
-        <button
-          className="border rounded p-1"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          {">"}
-        </button>
-        <button
-          className="border rounded p-1"
-          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-          disabled={!table.getCanNextPage()}
-        >
-          {">>"}
-        </button>
+        <label>
+          <button
+            className=" border rounded p-1 "
+            onClick={() => table.setPageIndex(0)}
+            disabled={!table.getCanPreviousPage()}
+          >
+            {"<<"}
+          </button>
+          <button
+            className="border rounded p-1"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            {"<"}
+          </button>
+          <strong>
+            {table.getState().pagination.pageIndex + 1} /{table.getPageCount()}
+          </strong>
+          <button
+            className="border rounded p-1"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            {">"}
+          </button>
+          <button
+            className="border rounded p-1"
+            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+            disabled={!table.getCanNextPage()}
+          >
+            {">>"}
+          </button>
+        </label>
       </div>
     </div>
   );

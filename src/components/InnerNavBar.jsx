@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { useSelector } from "react-redux";
+import { FaPlus } from "react-icons/fa";
 import { DeleteParents, UpdateParent } from "@/app/actions";
 const InnerNavBar = ({ unit }) => {
   const role = unit.toLowerCase();
@@ -12,7 +13,7 @@ const InnerNavBar = ({ unit }) => {
   console.log(selectedUnits);
 
   return (
-    <div className="flex gap-5 items-center">
+    <div className="flex mx-10 gap-5 items-center">
       <Link
         href={`/${role}`}
         className="mr-auto font-bold text-2xl text-[#2C3D68] "
@@ -20,18 +21,21 @@ const InnerNavBar = ({ unit }) => {
         {unit}
       </Link>
       <Link
-        className={`button-action-fill ${disabled ? "disable" : ""} `}
+        className={`button-action-fill whitespace-nowrap items-center flex ${
+          disabled ? "disable" : ""
+        } `}
         href={`/${role}/add`}
       >
-        <span className="text-xl">+</span> Add {unit}
+        <FaPlus className="text-md md:mr-2 " />
+        <span className="hidden md:block">Add {unit}</span>
       </Link>
       <Link
         href={`/${role}/edit/${selectedUnits[0]}`}
-        className={`flex relative gap-2 pr-6 button-action-outline  ${
+        className={`flex relative gap-2 whitespace-nowrap pr-3 md:pr-6 button-action-outline  ${
           disabled || selectedUnits.length !== 1 ? "disable" : ""
-        } flex relative gap-2 pr-6 button-action-outline`}
+        } flex relative gap-2  button-action-outline`}
       >
-        Edit {unit}
+        <span className="hidden md:block">Edit {unit}</span>
         <svg
           width="24"
           height="24"
@@ -52,9 +56,9 @@ const InnerNavBar = ({ unit }) => {
       <button
         disabled={disabled || selectedUnits.length === 0}
         onClick={() => DeleteParents({ Data: selectedUnits, role: role })}
-        className="flex relative gap-2 pr-6 button-action-outline "
+        className="flex relative gap-2 pr-3 md:pr-6 button-action-outline "
       >
-        Remove{" "}
+        <span className="hidden md:block">Remove</span>
         <svg
           width="24"
           height="24"
