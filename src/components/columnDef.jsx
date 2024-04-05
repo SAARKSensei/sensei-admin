@@ -10,6 +10,93 @@ import {
 } from "../lib/features/parent/parentSlice";
 import * as counsellor from "../lib/features/counsellor/counsellorSlice";
 import * as school from "../lib/features/school/schoolSlice";
+import * as student from "../lib/features/student/studentSlice";
+export const StudentTable = ({ data }) => {
+  const dispatch = useDispatch();
+  const rowSelection = useSelector((state) => state.student.rowSelection);
+  const columns = [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <IndeterminateCheckbox
+          {...{
+            checked: table.getIsAllRowsSelected(),
+            indeterminate: table.getIsSomeRowsSelected(),
+            onChange: (e) => {
+              if (table.getIsAllRowsSelected()) dispatch(student.unselectAll());
+              else dispatch(student.selectAll(data));
+              table.getToggleAllRowsSelectedHandler()(e);
+              // console.log(table.getIsAllRowsSelected());
+            },
+          }}
+        />
+      ),
+      cell: ({ row }) => (
+        <IndeterminateCheckbox
+          {...{
+            checked: row.getIsSelected(),
+            disabled: !row.getCanSelect(),
+            indeterminate: row.getIsSomeSelected(),
+            onChange: (e) => {
+              if (row.getIsSelected())
+                dispatch(student.unselect(row?.original?.ParenId));
+              else dispatch(student.select(row?.original?.ParenId));
+              row.getToggleSelectedHandler()(e);
+              // console.log(row);
+            },
+          }}
+        />
+      ),
+    },
+    {
+      header: "Student ID",
+      accessorKey: "ParenId",
+    },
+    {
+      header: "Student Name",
+      accessorKey: "ChildrenName",
+    },
+    {
+      header: "Father Name",
+      accessorKey: "ParentName",
+    },
+    {
+      header: "Mother Name",
+      accessorKey: "ParentName",
+    },
+    {
+      header: "Class",
+      accessorKey: "PhoneNo",
+    },
+
+    {
+      header: "D.O.B",
+      accessorKey: "DOB",
+    },
+
+    {
+      header: "Medic History",
+      accessorKey: "MartialStatus",
+    },
+  ];
+  const initialVisibility = {
+    select: true,
+    ParenId: false,
+    ParentName: true,
+    DOB: true,
+    ChildrenName: true,
+    MartialStatus: true,
+  };
+  return (
+    <Table
+      data={data}
+      rowSelection={rowSelection}
+      id={"ParenId"}
+      initialVisibility={initialVisibility}
+      columns={columns}
+    />
+  );
+};
 export const ParentTable = ({ data }) => {
   const dispatch = useDispatch();
   const rowSelection = useSelector((state) => state.parent.rowSelection);

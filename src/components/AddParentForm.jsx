@@ -1,61 +1,50 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import AddParentSubmitButton from "./AddParentSubmitButton";
 import Select from "./Select";
 import { AddParent } from "../app/actions";
-import { useForm } from "react-hook-form";
+import { get, set, useForm } from "react-hook-form";
 const AddParentForm = ({ data }) => {
-  const [maritalStatus, setMaritalStatus] = useState("Married");
+  const [maritalStatus, setMaritalStatus] = useState(
+    data?.MartialStatus ?? "Married"
+  );
+  const parentData = {
+    ParentId: data?.ParenId ?? "",
+    MaritalStatus: data?.MartialStatus ?? "Married",
+    FatherName: data?.ParentName ?? "",
+    FatherPhone: data?.PhoneNo ?? "",
+    FatherEmail: data?.EmailId ?? "",
+    FatherOccupation: data?.Occupation ?? "",
+    isFatherWorking: data?.Working ?? "",
+    FatherDob: data?.ParentDob ?? "",
+    MotherName: data?.ParentName ?? "",
+    MotherPhone: data?.PhoneNo ?? "",
+    MotherEmail: data?.EmailId ?? "",
+    MotherOccupation: data?.Occupation ?? "",
+    isMotherWorking: data?.Working ?? "",
+    MotherDob: data?.ParentDob ?? "",
+    ParentName: data?.ParentName ?? "",
+    ParentPhone: data?.PhoneNo ?? "",
+    ParentEmail: data?.EmailId ?? "",
+    ParentOccupation: data?.Occupation ?? "",
+    isParentWorking: data?.Working ?? "",
+    ParentDob: data?.FatherDob ?? "",
+  };
   const {
     register,
     reset,
     handleSubmit,
-
+    getValues,
     formState: { isSubmitSuccessful, errors, isSubmitting },
-  } = useForm();
-  useEffect(() => {
-    if (!data) return;
-    const parentData = {
-      ParentId: data?.ParenId ?? "",
-      MaritalStatus: data?.MartialStatus ?? "",
-      FatherName: data?.ParentName ?? "",
-      FatherPhone: data?.PhoneNo ?? "",
-      FatherEmail: data?.EmailId ?? "",
-      FatherOccupation: data?.Occupation ?? "",
-      isFatherWorking: data?.Working ?? "",
-      FatherDob: data?.ParentDob ?? "",
-      MotherName: data?.ParentName ?? "",
-      MotherPhone: data?.PhoneNo ?? "",
-      MotherEmail: data?.EmailId ?? "",
-      MotherOccupation: data?.Occupation ?? "",
-      isMotherWorking: data?.Working ?? "",
-      MotherDob: data?.ParentDob ?? "",
-      ParentName: data?.ParentName ?? "",
-      ParentPhone: data?.PhoneNo ?? "",
-      ParentEmail: data?.EmailId ?? "",
-      ParentOccupation: data?.Occupation ?? "",
-      isParentWorking: data?.Working ?? "",
-      ParentDob: data?.FatherDob ?? "",
-    };
-    console.log(parentData);
-    reset(parentData);
-  }, [data, reset]);
-  const maritalStatusChangeHandler = async (value) => {
-    setMaritalStatus(value);
-  };
+  } = useForm({ defaultValues: parentData });
+
   const submitHandler = async (formData) => {
     const res = await AddParent(formData);
     console.log(res);
 
     if (isSubmitSuccessful) reset();
   };
-  useEffect(() => {
-    console.log(isSubmitting);
 
-    if (isSubmitSuccessful) {
-      console.log("Parent Added Successfully");
-    }
-  }, [isSubmitting, isSubmitSuccessful]);
   return (
     <>
       <form
@@ -80,9 +69,9 @@ const AddParentForm = ({ data }) => {
           </label>{" "}
           <Select
             name={"MaritalStatus"}
-            initial={maritalStatus}
+            value={maritalStatus}
             register={register}
-            action={maritalStatusChangeHandler}
+            action={(value) => setMaritalStatus(value)}
             options={["Married", "Single", "Separated", "Divorced"]}
           />
         </div>
