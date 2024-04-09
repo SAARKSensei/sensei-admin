@@ -36,7 +36,7 @@ const SideMenu = () => {
           </Link>
           <Link
             className={`hover:bg-[#FF8B13] px-14 py-3 ${
-              path.startsWith("/module") ? "bg-[#FF8B13]" : ""
+              path.startsWith("/modules") ? "bg-[#FF8B13]" : ""
             }`}
             href="/modules"
           >
