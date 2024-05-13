@@ -8,19 +8,10 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-<<<<<<< HEAD
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-=======
 .dark {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0;
->>>>>>> feature
 }
 
 body {
@@ -32,9 +23,6 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
-<<<<<<< HEAD
-
-=======
 @layer components {
   .disable {
     @apply !bg-[#F6F6F6] !text-[#B3B3B3] !shadow-none !outline-none !pointer-events-none;
@@ -138,7 +126,6 @@ input {
 input[type="date"]:invalid::-webkit-datetime-edit {
   color: #8b99a6;
 }
->>>>>>> feature
 @layer utilities {
   .text-balance {
     text-wrap: balance;
