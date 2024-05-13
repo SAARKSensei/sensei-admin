@@ -76,6 +76,7 @@ input::-webkit-calendar-picker-indicator {
   left: 0;
   right: 0;
   bottom: 0;
+  border: 1px solid #e2e2e2;
   background-color: white;
   -webkit-transition: 0.4s;
   transition: 0.4s;

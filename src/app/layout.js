@@ -4,7 +4,6 @@ import SideMenu from "@/components/SideMenu";
 import Image from "next/image";
 import { FaUser } from "react-icons/fa";
 import StoreProvider from "@/lib/StoreProvider";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -14,8 +13,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <StoreProvider>
-      <html lang="en">
+    <html lang="en">
+      <StoreProvider>
         <body className={inter.className}>
           <main className="flex max-h-screen min-h-screen overflow-hidden flex-col bg-white">
             <div className=" shadow-2xl w-full flex justify-between px-[50px] py-3 bg-[#2C3D68]">
@@ -34,7 +33,7 @@ export default function RootLayout({ children }) {
             </div>
           </main>
         </body>
-      </html>
-    </StoreProvider>
+      </StoreProvider>
+    </html>
   );
 }

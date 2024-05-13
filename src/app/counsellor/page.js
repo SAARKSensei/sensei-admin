@@ -1,4 +1,4 @@
-import data from "@/MOCK_DATA.json";
+import data from "@/utils/MOCK_DATA.json";
 import { CounsellorTable } from "@/components/columnDef";
 export default function Home() {
   return (

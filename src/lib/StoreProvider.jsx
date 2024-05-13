@@ -2,6 +2,7 @@
 import { useRef } from "react";
 import { Provider } from "react-redux";
 import { Store } from "./store";
+import { SessionProvider } from "next-auth/react";
 
 export default function StoreProvider({ children }) {
   const storeRef = useRef();
@@ -10,5 +11,9 @@ export default function StoreProvider({ children }) {
     storeRef.current = Store();
   }
 
-  return <Provider store={storeRef.current}>{children}</Provider>;
+  return (
+    <SessionProvider>
+      <Provider store={storeRef.current}>{children}</Provider>
+    </SessionProvider>
+  );
 }

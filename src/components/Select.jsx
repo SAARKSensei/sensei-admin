@@ -1,8 +1,9 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 
-const Select = ({ name, value, options, action, register }) => {
+const Select = ({ name, value, options, register }) => {
   //console.log(initial);
+  const [currentValue, setCurrentValue] = useState(value);
   const columnSelectRef = useRef();
   const [active, setActive] = useState(false);
   useEffect(() => {
@@ -26,7 +27,7 @@ const Select = ({ name, value, options, action, register }) => {
         } selectAfter  relative shadow-sm px-6 py-3 rounded-xl cursor-pointer w-44"
      `}
       >
-        {value}
+        {currentValue}
       </div>
       <ul
         className={`absolute bg-white mt-1 shadow-md rounded-lg w-44 overflow-hidden ${
@@ -34,20 +35,20 @@ const Select = ({ name, value, options, action, register }) => {
         }`}
       >
         {options.map((option, index) => (
-          <li key={index} className={` flex  `}>
+          <li key={index} className={`flex`}>
             <input
               className=" appearance-none"
               type="radio"
               id={option}
-              value={option}
-              onClick={() => action(option)}
+              currentValue={option}
+              onClick={() => setCurrentValue(option)}
               {...register(name)}
-              checked={value === option}
+              checked={currentValue === option}
               required
             />
             <label
               className={`${
-                value === option ? "bg-[#FF8B13]" : ""
+                currentValue === option ? "bg-[#FF8B13]" : ""
               } hover:bg-[#FF8B13] rounded-lg w-44 px-6 py-[10px]  cursor-pointer`}
               htmlFor={option}
             >

@@ -4,10 +4,13 @@ import AddParentSubmitButton from "./AddParentSubmitButton";
 import Select from "./Select";
 import { AddParent } from "../app/actions";
 import { get, set, useForm } from "react-hook-form";
+import { usePathname } from "next/navigation";
 const AddParentForm = ({ data }) => {
-  const [maritalStatus, setMaritalStatus] = useState(
-    data?.MartialStatus ?? "Married"
-  );
+  // const [maritalStatus, setMaritalStatus] = useState(
+  //   data?.MartialStatus ?? "Married"
+  // );
+  const path = usePathname();
+  const maritalStatus = data?.MartialStatus ?? "Married";
   const parentData = {
     ParentId: data?.ParenId ?? "",
     MaritalStatus: data?.MartialStatus ?? "Married",
@@ -53,17 +56,21 @@ const AddParentForm = ({ data }) => {
         //action={submitHandler}
       >
         <div className="flex  flex-col">
-          <label className=" pb-[10px] pt-5 text-sm" htmlFor="ParentId">
-            Parent ID
-          </label>{" "}
-          <input
-            required
-            className=" shadow px-6 py-3 rounded-xl outline-none"
-            type="text"
-            placeholder="Type here"
-            {...register("ParentId")}
-            name="ParentId"
-          />
+          {path.startsWith("/parent/edit") && (
+            <>
+              <label className=" pb-[10px] pt-5 text-sm" htmlFor="ParentId">
+                Parent ID
+              </label>{" "}
+              <input
+                disabled
+                className=" shadow px-6 py-3 rounded-xl outline-none"
+                type="text"
+                placeholder="Type here"
+                {...register("ParentId")}
+                name="ParentId"
+              />
+            </>
+          )}
           <label className=" pb-[10px] pt-5 text-sm" htmlFor="maritalStatus">
             Marital Status
           </label>{" "}
@@ -71,7 +78,6 @@ const AddParentForm = ({ data }) => {
             name={"MaritalStatus"}
             value={maritalStatus}
             register={register}
-            action={(value) => setMaritalStatus(value)}
             options={["Married", "Single", "Separated", "Divorced"]}
           />
         </div>
@@ -136,7 +142,7 @@ const ParentForm = ({ parentName, register, control }) => {
           </label>{" "}
           <input
             required
-            className="max-w-[220px] px-6 py-3 rounded-xl outline-none"
+            className="shadow max-w-[220px] px-6 py-3 rounded-xl outline-none"
             type="text"
             placeholder="Type here"
             {...register(`${parentName}Occupation`)}

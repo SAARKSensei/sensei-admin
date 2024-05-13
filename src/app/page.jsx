@@ -4,7 +4,7 @@ import {
   CounsellorLeaderboard,
   SchoolChart,
   onboardingStats,
-} from "@/dashboardData";
+} from "@/utils/dashboardData";
 const Home = () => {
   const studentColumn = [
     { Header: "Student_ID", accessor: "Stud_id" },

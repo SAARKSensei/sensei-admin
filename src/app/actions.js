@@ -1,5 +1,5 @@
 "use server";
-import data from "@/MOCK_DATA.json";
+import data from "@/utils/MOCK_DATA.json";
 export const AddParent = async (Data) => {
   try {
     await new Promise((resolve) => {

@@ -5,37 +5,48 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { FaPlus } from "react-icons/fa";
 import { DeleteParents, UpdateParent } from "@/app/actions";
-const InnerNavBar = ({ unit }) => {
-  const role = unit.toLowerCase();
+const InnerNavBar = () => {
+  let link;
+  let role;
   const path = usePathname();
+  const r = path.split("/");
+  if (path.startsWith("/learning")) {
+    link = r[1] + "/" + r[2];
+    role = r[2];
+  } else {
+    role = r[1];
+    link = role;
+  }
+  const head = role.charAt(0).toUpperCase() + role.slice(1);
+  // console.log(role);
   const disabled = path.includes("add") || path.includes("edit");
   const selectedUnits = useSelector((state) => state[role].selected);
-  console.log(selectedUnits);
+  // console.log(selectedUnits);
 
   return (
     <div className="flex mx-10 gap-5 items-center">
       <Link
-        href={`/${role}`}
+        href={`/${link}`}
         className="mr-auto font-bold text-2xl text-[#2C3D68] "
       >
-        {unit}
+        {head + "s"}
       </Link>
       <Link
         className={`button-action-fill whitespace-nowrap items-center flex ${
           disabled ? "disable" : ""
         } `}
-        href={`/${role}/add`}
+        href={`/${link}/add`}
       >
         <FaPlus className="text-md md:mr-2 " />
-        <span className="hidden md:block">Add {unit}</span>
+        <span className="hidden md:block">Add {head}</span>
       </Link>
       <Link
-        href={`/${role}/edit/${selectedUnits[0]}`}
+        href={`/${link}/edit/${selectedUnits[0]}`}
         className={`flex relative gap-2 whitespace-nowrap pr-3 md:pr-6 button-action-outline  ${
           disabled || selectedUnits.length !== 1 ? "disable" : ""
         } flex relative gap-2  button-action-outline`}
       >
-        <span className="hidden md:block">Edit {unit}</span>
+        <span className="hidden md:block">Edit {head}</span>
         <svg
           width="24"
           height="24"
@@ -55,7 +66,7 @@ const InnerNavBar = ({ unit }) => {
       </Link>
       <button
         disabled={disabled || selectedUnits.length === 0}
-        onClick={() => DeleteParents({ Data: selectedUnits, role: role })}
+        onClick={() => DeleteParents({ Data: selectedUnits, link: link })}
         className="flex relative gap-2 pr-3 md:pr-6 button-action-outline "
       >
         <span className="hidden md:block">Remove</span>

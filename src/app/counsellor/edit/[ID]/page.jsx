@@ -1,6 +1,6 @@
 "use client";
 import AddCounsellorForm from "@/components/AddCounsellorForm";
-import data from "@/MOCK_DATA.json";
+import data from "@/utils/MOCK_DATA.json";
 export default function Home({ params }) {
   console.log(params.ID);
   const record = data.find((record) => record.ParenId === params.ID);
