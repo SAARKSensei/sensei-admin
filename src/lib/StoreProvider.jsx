@@ -1,0 +1,19 @@
+"use client";
+import { useRef } from "react";
+import { Provider } from "react-redux";
+import { Store } from "./store";
+import { SessionProvider } from "next-auth/react";
+
+export default function StoreProvider({ children }) {
+  const storeRef = useRef();
+  if (!storeRef.current) {
+    // Create the store instance the first time this renders
+    storeRef.current = Store();
+  }
+
+  return (
+    <SessionProvider>
+      <Provider store={storeRef.current}>{children}</Provider>
+    </SessionProvider>
+  );
+}
